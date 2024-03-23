@@ -6,12 +6,15 @@ import lombok.*;
 @AllArgsConstructor
 @Getter
 @Setter
+@ToString
 
 public class StationDTO {
 
     private Long id;
 
     private String station;
+
+    private String wmo;
 
     private Double temperature;
 
