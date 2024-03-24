@@ -16,7 +16,7 @@ The application uses data from Tallinn-Harku (City of Tallinn), Tartu-Tõravere 
 The fee calculating logic testing is automated and repository functionalities testing are automated, have not managed to make tests work for other components.
 
 
-##To run the application
+## To run the application
 
 ```cd ../path/to/project```
 
