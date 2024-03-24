@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
 
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -26,15 +27,28 @@ public class RegionalBaseFeeServiceImpl implements RegionalBaseFeeService{
     }
 
     @Override
-    public String updateBaseFee(Long id, RegionalBaseFeeDTO regionalBaseFeeDTO) {
-        Optional<RegionalBaseFee> regionalBaseFee = regionalBaseFeeRepo.findById(id);
-        if (regionalBaseFee.isPresent()){
-            RegionalBaseFee updated = regionalBaseFee.get();
-            updated.setCity(regionalBaseFeeDTO.getCity());
-            updated.setFee(regionalBaseFeeDTO.getFee());
-            updated.setVehicle(regionalBaseFeeDTO.getVehicle());
-            regionalBaseFeeRepo.save(updated);
+    public String updateBaseFee(String city, String vehicle, double fee) {
+        List<RegionalBaseFee> rbfs = regionalBaseFeeRepo.findAll();
+        for (RegionalBaseFee rbf : rbfs) {
+            if(rbf.getVehicle().equals(vehicle) && rbf.getCity().equals(city)){
+                RegionalBaseFee updated = rbf;
+                updated.setFee(fee);
+                regionalBaseFeeRepo.save(updated);
+            }
         }
         return "Base fee updated!";
     }
+
+    @Override
+    public String deleteBaseFee(String city, String vehicle) {
+        List<RegionalBaseFee> rbfs = regionalBaseFeeRepo.findAll();
+        for (RegionalBaseFee rbf : rbfs) {
+            if(rbf.getVehicle().equals(vehicle) && rbf.getCity().equals(city)){
+                regionalBaseFeeRepo.delete(rbf);
+            }
+        }
+        return "Base fee deleted!";
+    }
+
+
 }

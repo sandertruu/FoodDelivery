@@ -3,10 +3,7 @@ package com.intern.fooddelivery.controller;
 import com.intern.fooddelivery.dto.RegionalBaseFeeDTO;
 import com.intern.fooddelivery.service.RegionalBaseFeeService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 public class RegionalBaseFeeController {
@@ -19,9 +16,14 @@ public class RegionalBaseFeeController {
         return regionalBaseFeeService.addBaseFee(regionalBaseFeeDTO);
     };
 
-    @PostMapping("/update_base_fee/{city}")
-    public String updateBaseFee(@PathVariable Long id, @RequestBody RegionalBaseFeeDTO regionalBaseFeeDTO){
-        return regionalBaseFeeService.updateBaseFee(id, regionalBaseFeeDTO);
+    @PostMapping("/update_base_fee")
+    public String updateBaseFee(@RequestParam String city, @RequestParam String vehicle, @RequestParam double fee){
+        return regionalBaseFeeService.updateBaseFee(city, vehicle, fee);
+    }
+
+    @DeleteMapping
+    public String deleteBaseFee(@RequestParam String city, @RequestParam String vehicle){
+        return regionalBaseFeeService.deleteBaseFee(city, vehicle);
     }
 
 }

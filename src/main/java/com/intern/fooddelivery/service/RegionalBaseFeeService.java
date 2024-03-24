@@ -8,5 +8,7 @@ import org.springframework.stereotype.Service;
 public interface RegionalBaseFeeService {
     public String addBaseFee(RegionalBaseFeeDTO regionalBaseFeeDTO);
 
-    public String updateBaseFee(Long id, RegionalBaseFeeDTO regionalBaseFeeDTO);
+    public String updateBaseFee(String city, String vehicle, double fee);
+
+    public String deleteBaseFee(String city, String vehicle);
 }

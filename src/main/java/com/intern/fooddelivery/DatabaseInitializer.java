@@ -36,6 +36,23 @@ public class DatabaseInitializer implements ApplicationListener<ContextRefreshed
                 throw new RuntimeException(e);
             }
         }
+
+        Station[] weather = {
+                new Station(1L, "Tallinn", 12345L, -11.0, 12.0, "snow", "2024-03-24 13:40:00"),
+                new Station(2L, "Tartu", 12346L, -9.0, 5.0, "rain", "2024-03-24 13:40:00"),
+                new Station(3L, "Pärnu", 12347L, -11.0, 23.0, "rain", "2024-03-24 13:40:00"),
+                new Station(4L, "Tallinn", 12348L, 5.0, 3.0, "hail", "2024-03-24 13:41:00"),
+                new Station(5L, "Tartu", 12341L, 5.0, 3.0, "rain", "2024-03-24 13:41:00"),
+                new Station(6L, "Pärnu", 12328L, 5.0, 3.0, "glaze", "2024-03-24 13:41:00")
+        };
+
+        for (Station station : weather) {
+            try {
+                insertWeather(station);
+            } catch (SQLException e) {
+                throw new RuntimeException(e);
+            }
+        }
     }
 
 

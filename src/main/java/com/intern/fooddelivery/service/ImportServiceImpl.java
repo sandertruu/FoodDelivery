@@ -16,6 +16,10 @@ import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.net.URL;
 import java.net.URLConnection;
+import java.time.Instant;
+import java.time.LocalDateTime;
+import java.time.ZoneOffset;
+import java.time.format.DateTimeFormatter;
 import java.util.Arrays;
 import java.util.List;
 
@@ -38,7 +42,13 @@ public class ImportServiceImpl implements ImportService{
 
         Document document = builder.parse(new InputSource(reader));
         document.getDocumentElement().normalize();
-        String timestamp = document.getDocumentElement().getAttribute("timestamp");
+        Long timestamp = Long.valueOf(document.getDocumentElement().getAttribute("timestamp"));
+        LocalDateTime dateTime = LocalDateTime.ofInstant(Instant.ofEpochSecond(timestamp), ZoneOffset.UTC);
+
+
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+        String formattedDateTime = dateTime.format(formatter);
+
         NodeList stationNodes = document.getElementsByTagName("station");
 
         for (int i = 0; i < stationNodes.getLength(); i++) {
@@ -62,7 +72,7 @@ public class ImportServiceImpl implements ImportService{
                     weather.setStation(stationName);
                     weather.setPhenomenon(phenomenon);
                     weather.setTemperature(Double.parseDouble(temperature));
-                    weather.setTimestamp(timestamp);
+                    weather.setTimestamp(formattedDateTime);
                     weather.setWindspeed(Double.parseDouble(windspeed));
                     weather.setWmo(Long.parseLong(wmo));
 
