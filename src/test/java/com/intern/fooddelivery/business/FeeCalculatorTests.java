@@ -93,5 +93,5 @@ public class FeeCalculatorTests {
 
         Assertions.assertEquals(4.5, fee);
     }
-    
+
 }
