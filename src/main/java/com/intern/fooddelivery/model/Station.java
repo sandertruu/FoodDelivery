@@ -10,6 +10,7 @@ import lombok.*;
 @Setter
 @Getter
 @ToString
+@Builder
 public class Station {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

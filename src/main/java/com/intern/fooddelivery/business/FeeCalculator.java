@@ -11,6 +11,7 @@ import java.util.concurrent.ThreadLocalRandom;
 @AllArgsConstructor
 @NoArgsConstructor
 @ToString
+@Builder
 public class FeeCalculator {
 
     private String vehicle;

@@ -11,6 +11,7 @@ import org.springframework.ui.ModelMap;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 public class RegionalBaseFeeServiceImpl implements RegionalBaseFeeService{
@@ -48,6 +49,12 @@ public class RegionalBaseFeeServiceImpl implements RegionalBaseFeeService{
             }
         }
         return "Base fee deleted!";
+    }
+
+    @Override
+    public List<RegionalBaseFeeDTO> getAllBaseFees() {
+        return regionalBaseFeeRepo.findAll().stream()
+                .map(regionalBaseFee -> modelMapper.map(regionalBaseFee, RegionalBaseFeeDTO.class)).collect(Collectors.toList());
     }
 
 

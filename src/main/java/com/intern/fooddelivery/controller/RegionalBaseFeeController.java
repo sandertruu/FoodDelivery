@@ -2,8 +2,11 @@ package com.intern.fooddelivery.controller;
 
 import com.intern.fooddelivery.dto.RegionalBaseFeeDTO;
 import com.intern.fooddelivery.service.RegionalBaseFeeService;
+import lombok.Getter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 public class RegionalBaseFeeController {
@@ -24,6 +27,11 @@ public class RegionalBaseFeeController {
     @DeleteMapping
     public String deleteBaseFee(@RequestParam String city, @RequestParam String vehicle){
         return regionalBaseFeeService.deleteBaseFee(city, vehicle);
+    }
+
+    @GetMapping("/allbasefees")
+    public List<RegionalBaseFeeDTO> getAllBaseFees(){
+        return regionalBaseFeeService.getAllBaseFees();
     }
 
 }
