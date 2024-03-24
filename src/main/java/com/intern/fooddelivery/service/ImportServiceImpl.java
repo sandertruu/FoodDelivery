@@ -53,7 +53,12 @@ public class ImportServiceImpl implements ImportService{
                     String phenomenon = stationElement.getElementsByTagName("phenomenon").item(0).getTextContent();
 
                     Station weather = new Station();
-
+                    if(stationName.equals("Tallinn-Harku")){
+                        stationName = "Tallinn";
+                    }
+                    if(stationName.equals("Tartu-Tõravere")){
+                        stationName = "Tartu";
+                    }
                     weather.setStation(stationName);
                     weather.setPhenomenon(phenomenon);
                     weather.setTemperature(Double.parseDouble(temperature));

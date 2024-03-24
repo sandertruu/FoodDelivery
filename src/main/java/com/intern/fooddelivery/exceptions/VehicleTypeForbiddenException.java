@@ -5,5 +5,5 @@ public class VehicleTypeForbiddenException extends IllegalArgumentException{
 
     public VehicleTypeForbiddenException(String message){ super(message);}
 
-    public VehicleTypeForbiddenException(String message, Throwable cause){ super(message, cause)};
+    public VehicleTypeForbiddenException(String message, Throwable cause){ super(message, cause);}
 }

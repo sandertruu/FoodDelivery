@@ -7,4 +7,6 @@ import org.springframework.stereotype.Service;
 @Service
 public interface RegionalBaseFeeService {
     public String addBaseFee(RegionalBaseFeeDTO regionalBaseFeeDTO);
+
+    public String updateBaseFee(Long id, RegionalBaseFeeDTO regionalBaseFeeDTO);
 }

@@ -12,11 +12,13 @@ import com.intern.fooddelivery.repository.RegionalBaseFeeRepo;
 import com.intern.fooddelivery.repository.StationRepo;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
-import javax.swing.plaf.synth.Region;
 import java.util.List;
+import java.util.stream.Collectors;
 
-public class StationServiceImpl implements StationServive{
+@Service
+public class StationServiceImpl implements StationService {
     @Autowired
     private StationRepo stationRepo;
     @Autowired
@@ -24,24 +26,33 @@ public class StationServiceImpl implements StationServive{
     @Autowired
     private CalculatedFeeRepo calculatedFeeRepo;
     @Autowired
-    ModelMapper modelMapper;
+    private ModelMapper modelMapper;
 
-    StationDTO weather;
-    RegionalBaseFeeDTO rbf;
+
+
 
     @Override
     public CalculatedFeeDTO calculateFee(String vehicle, String city) {
+        StationDTO weather = null;
         List<Station> stations= stationRepo.findAll();
-        for (Station station : stations) {
+        List<StationDTO> stationDTOS = stations.stream().
+                map(station -> modelMapper.map(station, StationDTO.class)).collect(Collectors.toList());
+        for (StationDTO station : stationDTOS) {
             if (station.getStation().equals(city)){
-                weather = modelMapper.map(station, StationDTO.class);
+                weather = station;
                 break;
             }
         }
+        RegionalBaseFeeDTO rbf = null;
         List<RegionalBaseFee> rbfs = regionalBaseFeeRepo.findAll();
-        for (RegionalBaseFee rbfdata : rbfs) {
-            if (rbfdata.getCity().equals(city)){
-                rbf = modelMapper.map(rbfdata, RegionalBaseFeeDTO.class);
+        System.out.println(rbfs);
+        List<RegionalBaseFeeDTO> rbfsDTOS = rbfs.stream().
+                map(regionalBaseFee -> modelMapper.map(regionalBaseFee, RegionalBaseFeeDTO.class)).collect(Collectors.toList());
+        for (RegionalBaseFeeDTO rbfdata : rbfsDTOS) {
+            if (rbfdata.getCity().equals(city) && rbfdata.getVehicle().equals(vehicle)){
+                System.out.println(vehicle + " " + city);
+                rbf = rbfdata;
+                break;
             }
         }
 
@@ -52,6 +63,12 @@ public class StationServiceImpl implements StationServive{
         calculatedFeeRepo.save(modelMapper.map(calculatedFeeDTO, CalculatedFee.class));
 
         return calculatedFeeDTO;
+    }
+
+    @Override
+    public List<StationDTO> getAllStationData() {
+        return stationRepo.findAll().stream()
+                .map(station -> modelMapper.map(station, StationDTO.class)).collect(Collectors.toList());
     }
 
 
