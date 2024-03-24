@@ -26,7 +26,7 @@ public class DatabaseInitializer implements ApplicationListener<ContextRefreshed
         PreparedStatement stmt = con.prepareStatement(query);
 
         stmt.setString(1, station.getStation());
-        stmt.setString(2, station.getWmo());
+        stmt.setLong(2, station.getWmo());
         stmt.setDouble(3, station.getTemperature());
         stmt.setDouble(4, station.getWindspeed());
         stmt.setString(5, station.getPhenomenon());

@@ -19,5 +19,6 @@ public class CalculatedFee {
     @Column(name = "total_fee")
     private double fee;
 
-
+    @Column(name = "error_msg")
+    private String error;
 }

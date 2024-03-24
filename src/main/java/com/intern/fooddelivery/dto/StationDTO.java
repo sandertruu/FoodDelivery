@@ -14,7 +14,7 @@ public class StationDTO {
 
     private String station;
 
-    private String wmo;
+    private Long wmo;
 
     private Double temperature;
 

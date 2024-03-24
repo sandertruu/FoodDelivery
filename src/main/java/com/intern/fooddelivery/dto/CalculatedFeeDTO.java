@@ -10,4 +10,5 @@ import lombok.*;
 public class CalculatedFeeDTO {
     private Long id;
     private double fee;
+    private String error;
 }

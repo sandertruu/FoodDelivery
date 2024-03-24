@@ -19,7 +19,7 @@ public class Station {
     private String station;
 
     @Column(name = "wmo")
-    private String wmo;
+    private Long wmo;
 
     @Column(name = "temperature")
     private Double temperature;

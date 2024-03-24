@@ -19,7 +19,7 @@ public class StationController {
     @Autowired
     private StationServive stationServive;
 
-    @GetMapping("calculate_fee")
+    @GetMapping("/calculate_fee")
     public CalculatedFeeDTO calculateDeliveryFee(@RequestParam String vehicle, @RequestParam String city){
         return stationServive.calculateFee(vehicle, city);
     }
