@@ -10,8 +10,10 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
-import java.util.List;
 
+/**
+ * Uses prepared statements to fill the database with some test data
+ */
 @Component
 public class DatabaseInitializer implements ApplicationListener<ContextRefreshedEvent> {
 
@@ -38,11 +40,11 @@ public class DatabaseInitializer implements ApplicationListener<ContextRefreshed
         }
 
         Station[] weather = {
-                new Station(1L, "Tallinn", 12345L, -11.0, 12.0, "snow", "2024-03-24 13:40:00"),
-                new Station(2L, "Tartu", 12346L, -9.0, 5.0, "rain", "2024-03-24 13:40:00"),
+                new Station(1L, "Tallinn", 12345L, -11.0, 12.0, "heavy snowfall", "2024-03-24 13:40:00"),
+                new Station(2L, "Tartu", 12346L, -9.0, 5.0, "moderate sleet", "2024-03-24 13:40:00"),
                 new Station(3L, "Pärnu", 12347L, -11.0, 23.0, "rain", "2024-03-24 13:40:00"),
                 new Station(4L, "Tallinn", 12348L, 5.0, 3.0, "hail", "2024-03-24 13:41:00"),
-                new Station(5L, "Tartu", 12341L, 5.0, 3.0, "rain", "2024-03-24 13:41:00"),
+                new Station(5L, "Tartu", 12341L, 5.0, 3.0, "light rain", "2024-03-24 13:41:00"),
                 new Station(6L, "Pärnu", 12328L, 5.0, 3.0, "glaze", "2024-03-24 13:41:00")
         };
 

@@ -28,10 +28,16 @@ public class ImportServiceImpl implements ImportService{
 
     @Autowired
     private StationRepo stationRepo;
+
+    /**
+     * method to read in data from https://www.ilmateenistus.ee/ilma_andmed/xml/observations.php and store it in station repository
+     * @throws Exception
+     */
     @Override
     public void importData() throws Exception {
         URL url = new URL("https://www.ilmateenistus.ee/ilma_andmed/xml/observations.php");
 
+        //stations in the scope
         List<String> stations = Arrays.asList("Tallinn-Harku", "Tartu-Tõravere", "Pärnu");
 
         DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
@@ -42,6 +48,8 @@ public class ImportServiceImpl implements ImportService{
 
         Document document = builder.parse(new InputSource(reader));
         document.getDocumentElement().normalize();
+
+        //parse the epoch seconds to date and time value which can be later compared with request values
         Long timestamp = Long.valueOf(document.getDocumentElement().getAttribute("timestamp"));
         LocalDateTime dateTime = LocalDateTime.ofInstant(Instant.ofEpochSecond(timestamp), ZoneOffset.UTC);
 
@@ -63,6 +71,8 @@ public class ImportServiceImpl implements ImportService{
                     String phenomenon = stationElement.getElementsByTagName("phenomenon").item(0).getTextContent();
 
                     Station weather = new Station();
+
+                    //Simplify station names for easier comparison and data search for the context of this application
                     if(stationName.equals("Tallinn-Harku")){
                         stationName = "Tallinn";
                     }

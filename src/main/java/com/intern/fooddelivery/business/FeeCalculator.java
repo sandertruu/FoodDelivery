@@ -24,14 +24,22 @@ public class FeeCalculator {
 
     private String phenomenon;
 
-
+    /**
+     * Method to calculate the total delivery fee taking into account base fee and checking for weather condition based fees
+     * @return Calculated fee DTO with a possible error message or "" if there is no error, fee is 0 when there is illegal vehicle type
+     */
     public CalculatedFeeDTO calulateFee(){
         double total = basefee;
         double atef = 0;
         double wsef = 0;
         double wpef = 0;
         String error = "";
+        //Since the application is small, generate a random ID in the range until 100 for the
+        //CalculatedFee DTO
         long id = ThreadLocalRandom.current().nextLong(100);
+        //Did not manage to move the weather conditions into entity level
+        //So this part checks the vehicle type and then weather parameters in order to calculate
+        //additional fees
         if (vehicle.equals("scooter") || vehicle.equals("bike")){
             if (temperature < -10){
                 atef = 1;
@@ -41,9 +49,9 @@ public class FeeCalculator {
                 atef = 0;
             }
 
-            if (phenomenon.equals("snow") || phenomenon.equals("sleet")){
+            if (phenomenon.contains("snow") || phenomenon.contains("sleet")){
                 wpef = 1;
-            } else if (phenomenon.equals("rain")) {
+            } else if (phenomenon.contains("rain") || phenomenon.contains("shower")) {
                 wpef = 0.5;
             } else if (phenomenon.equals("glaze") || phenomenon.equals("hail") || phenomenon.equals("thunder")) {
                 return new CalculatedFeeDTO(id, 0,

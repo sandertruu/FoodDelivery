@@ -1,7 +1,6 @@
 package com.intern.fooddelivery.service;
 
 import com.intern.fooddelivery.dto.RegionalBaseFeeDTO;
-import com.intern.fooddelivery.model.RegionalBaseFee;
 import org.springframework.stereotype.Service;
 
 import java.util.List;

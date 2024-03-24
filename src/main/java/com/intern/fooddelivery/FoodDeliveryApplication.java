@@ -10,6 +10,10 @@ import org.springframework.scheduling.annotation.EnableScheduling;
 @EnableScheduling
 public class FoodDeliveryApplication {
 
+    /**
+     * modelmapper to convert between the DTOs and entities
+     * @return
+     */
     @Bean
     public ModelMapper modelMapper(){
         return new ModelMapper();
